@@ -1,1 +1,8 @@
-
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    A[Client] --> B[API] (request application)
+    B --> C[Cosmos DB]   (fetches records from cosmos for overall records)
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+* CONS OF CURRENT ARCHITECTURE
+Rising Costs: Azure Cosmos DB charges primarily for provisioned throughput (Request Units) and storage. Storing millions of records—each up to 300 KB—significantly increases storage costs, and unused old records still consume provisioned capacity, raising monthly expenses
+Inefficient Resource Usage: Even though records older than 3 months are rarely accessed, Cosmos DB continues to allocate resources (compute, IOPS) for their storage and indexing. This is inefficient for cost and performance.
+No Built-in Tiering: Cosmos DB has no native mechanism to automatically tier or archive old data to cheaper storage, so you pay the same rate for rarely accessed data as for active records.
